@@ -1,0 +1,3 @@
+rootProject.name = 'geekboard'
+
+include ':app'

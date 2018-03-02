@@ -1,0 +1,1 @@
+export { GameFeed } from './GameFeed';
