@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { 
+  Image,
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  View } from 'react-native';
 
 import { colors } from '../../styles';
 
@@ -14,17 +19,26 @@ export const Game = ({ session }) => {
         <Text style={ styles.gameDate } >Played on { session.started.toLocaleDateString() }</Text>
       </View>
       <View style={ styles.gameImageContainer }>
-        <Image 
-          style={ styles.gameImage }
-          source={{ uri: 'https://tibs2.threeifbyspace.net/wp-content/uploads/2014/11/7wonders_1.jpg' }}
-          resizeMode='cover' />
+        { session.images.map((image, key) =>
+          <Image 
+            key={ key }
+            style={ styles.gameImage }
+            source={{ uri: image }}
+            resizeMode='cover' />
+        )}
       </View>
       <View style={ styles.gameDetails }>
         <Text style={ styles.gameDetailsText } >
-          <GeekTag name='yoseldvp'/>, <GeekTag name='nevilleflynn'/>, <GeekTag name='darthvader'/>, <GeekTag name='Chewbaca'/> played for 43 minutes.
+          { session.geeks.map((geek, key) => <GeekTag key={ key } name={ geek.tag }/>) }
+         played for 43 minutes.
         </Text>
-        <WinnerBadge name='nevilleflynn' />
-        <LooserBadge name='darthvader' />
+        { session.geeks.map((geek, key) => {
+          if (geek.score.type === 'win/loose' && geek.score.value === 'win') {
+            return <WinnerBadge key={ key } name={ geek.tag } />
+          } else {
+            return <LooserBadge key={ key } name={ geek.tag } />
+          }
+        }) }
       </View>
     </View>
   );
