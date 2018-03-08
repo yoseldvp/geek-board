@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { 
+  Dimensions,
   Image,
   ScrollView, 
   StyleSheet, 
   Text, 
   View } from 'react-native';
 
+import { Title, Card } from '../common';
 import { colors } from '../../styles';
 
 import winner from './icons/winner.gif';
@@ -13,19 +15,26 @@ import looser from './icons/looser.gif';
 
 export const Game = ({ session }) => {
   return (
-    <View style={ styles.container } >
+    <Card>
       <View style={ styles.gameHeader }>
-        <Text style={ styles.gameTitle } >{ session.game.name }</Text>
+        <Title >{ session.game.name }</Title>
         <Text style={ styles.gameDate } >Played on { session.started.toLocaleDateString() }</Text>
       </View>
-      <View style={ styles.gameImageContainer }>
-        { session.images.map((image, key) =>
-          <Image 
-            key={ key }
-            style={ styles.gameImage }
-            source={{ uri: image }}
-            resizeMode='cover' />
-        )}
+      <View style={ styles.gameImageWrapper }>
+        <ScrollView decelerationRate={ 0 } 
+          horizontal={ true } 
+          showsHorizontalScrollIndicator={ false }
+          snapToAlignment='center' 
+          snapToInterval={ Dimensions.get('window').width } 
+          styles={ styles.gameImageContainer }> 
+          { session.images.map( (image, index) => 
+            <Image 
+              key={ index }
+              style={ styles.gameImage }
+              source={{ uri: image }}
+              resizeMode='cover' />
+          )}
+        </ScrollView>
       </View>
       <View style={ styles.gameDetails }>
         <Text style={ styles.gameDetailsText } >
@@ -40,7 +49,7 @@ export const Game = ({ session }) => {
           }
         }) }
       </View>
-    </View>
+    </Card>
   );
 }
 
@@ -81,30 +90,19 @@ const styles = StyleSheet.create({
     marginRight: 4,
     width: 18,
   },
-  badgeWinner: {
-    color: colors.accentDark,
-    fontWeight: 'bold',
+  badgeImageLooser: {
+    tintColor: colors.alternate,
+  },
+  badgeImageWinner: {
+    tintColor: colors.accent,
   },
   badgeLooser: {
     color: colors.alternate,
     fontWeight: 'bold',
   },
-  
-  badgeImageWinner: {
-    tintColor: colors.accent,
-  },
-  badgeImageLooser: {
-    tintColor: colors.alternate,
-  },
-  container: {
-    backgroundColor: colors.text,
-    borderRadius: 4,
-    margin: 12,
-    marginTop: 0,
-    shadowColor: colors.accentDark,
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 1, 
-    shadowRadius: 2,
+  badgeWinner: {
+    color: colors.accentDark,
+    fontWeight: 'bold',
   },
   gameDate: {
     color: colors.lowRelevance,
@@ -120,18 +118,19 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   gameImage: {
-    flex: 1,
     alignSelf: 'stretch',
+    flex: 1,
+    height: 300,
     overflow: 'hidden',
+    width: Dimensions.get('window').width,
   },
   gameImageContainer: {
-    height: 300
+    height: 300,
   },
-  gameTitle: {
-    color: 'black',
-    fontFamily: 'DEADMEAL',
-    fontSize: 32,
-    fontWeight: 'bold',
+  gameImageWrapper: {
+    borderBottomWidth: 2,
+    borderColor: colors.baseLight,
+    borderTopWidth: 2,
   },
   geekTag: {
     color: colors.accent,

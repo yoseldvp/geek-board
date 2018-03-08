@@ -3,27 +3,26 @@ import { Text, StyleSheet } from 'react-native';
 
 import { colors } from '../../styles';
 
-export const PlainText = (props) => {
-  return (
-    <Text style={ styles.text }>{ props.children }</Text>
-  );
-};
 
 export const Title = (props) => {
   return (
-    <Text style={ styles.heading }>{ props.children }</Text>
+    <Text style={ styles.title }>{ props.children }</Text>
+  );
+}
+
+export const Subtitle = (props) => {
+  return (
+    <Text style={ styles.subtitle }>{ props.children }</Text>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: colors.baseComplement,
-    fontSize: 14,
+  title: {
+    color: colors.title,
+    fontSize: 28,
   },
-  heading: {
-    color: colors.alternate,
-    fontSize: 32,
-    fontWeight: 'bold',
-    fontFamily: 'Pixellari',
+  subtitle: {
+    color: colors.title,
+    fontSize: 20,
   }
 });

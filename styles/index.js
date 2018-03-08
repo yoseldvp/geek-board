@@ -1,11 +1,16 @@
 export const colors = {
-  base: '#040F0F',
+  // base: '#040F0F',
+  base: '#1A2424',
+  baseLight: '#253333',
   baseComplement: '#666F6F',
   accent: '#248232',
   accentDark: '#175320',
+  accentLight: '#2C9F3D',
   accentComplement: '#2BA84A',
   alternate: '#82243A',
   alternateComplement: '#350410', 
   text: '#FCFFFC',
   lowRelevance: '#8C9393',
+  lowerRelevance: '#D8DBDB',
+  title: '#A3A7A7',
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
 
 import { Game } from './Game';
 
@@ -28,9 +28,11 @@ export class GameFeed extends Component {
 
   render () {
     return(
-      <ScrollView>
-        { this.state.feed.map((session, key) => <Game key={ key } session={ session } />) }
-      </ScrollView>
+      <FlatList data={ this.state.feed } 
+        keyExtractor={ (item, index) => index.toString() }
+        renderItem={ ({ item }) => 
+          <Game session={ item } />
+        } />
     );
   }
 }
